@@ -13,13 +13,13 @@ public class DriverFactoryModifierTest {
 	
 	@Test
 	public void test_runWith() {
-		String jsonBefore = new GroovyMetaClassInspector().toJson(DriverFactory.metaClass)
-		println "BEFORE:\n" + jsonBefore
-		//println DriverFactory.hello("People")
+		println "BEFORE:\n" + new GroovyMetaClassInspector().toJson(DriverFactory.metaClass) 
 		DriverFactoryModifier.runWith(WebUIDriverType.FIREFOX_DRIVER)
-		String jsonAfter = new GroovyMetaClassInspector().toJson(DriverFactory.metaClass)
-		println "AFTER:\n" + jsonAfter
 		println DriverFactory.hello("World")
+		WebUI.openBrowser('http://example.com/')
+		//DriverFactory.openWebDriver()
+		println "AFTER:\n" + new GroovyMetaClassInspector().toJson(DriverFactory.metaClass) 
+		WebUI.closeBrowser()
 	}
 	
 	/*
