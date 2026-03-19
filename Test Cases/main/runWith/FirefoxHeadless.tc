@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>FirefoxHeadless</name>
+   <tag></tag>
+   <comment></comment>
+   <recordOption>OTHER</recordOption>
+   <testCaseGuid>19bfa454-dafa-4060-8fc7-1d39342665d1</testCaseGuid>
+</TestCaseEntity>

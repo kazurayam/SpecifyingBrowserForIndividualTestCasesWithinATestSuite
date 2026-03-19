@@ -1,9 +1,14 @@
 package com.kazurayam.ks
 
+import static org.junit.Assert.assertEquals
+import static org.junit.Assert.assertTrue
+
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
+import com.kms.katalon.core.testobject.ConditionType
+import com.kms.katalon.core.testobject.TestObject
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.driver.WebUIDriverType
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
@@ -13,54 +18,30 @@ public class DriverFactoryModifierTest {
 	
 	@Test
 	public void test_runWith() {
-		println "BEFORE:\n" + new GroovyMetaClassInspector().toJson(DriverFactory.metaClass) 
+		String json1 = new GroovyMetaClassInspector().toJson(DriverFactory.metaClass)
+		//
 		DriverFactoryModifier.runWith(WebUIDriverType.FIREFOX_DRIVER)
-		println DriverFactory.hello("World")
+		//
+		String json2 = new GroovyMetaClassInspector().toJson(DriverFactory.metaClass)
+		verifyMethodsOfDriverFactory(json1, json2)
+		//
 		WebUI.openBrowser('http://example.com/')
-		//DriverFactory.openWebDriver()
-		println "AFTER:\n" + new GroovyMetaClassInspector().toJson(DriverFactory.metaClass) 
-		WebUI.closeBrowser()
-	}
-	
-	/*
-	@Test
-	public void testFirefox() {
-		DriverFactoryModifier.runWith(WebUIDriverType.FIREFOX_DRIVER)
-		WebUI.openBrowser('')
-		WebUI.delay(1)
-		WebUI.closeBrowser()
-	}
-	
-	@Test
-	public void testFirefoxHeadless() {
-		DriverFactoryModifier.runWith(WebUIDriverType.FIREFOX_HEADLESS_DRIVER)
-		WebUI.openBrowser('')
-		WebUI.delay(1)
+		WebUI.verifyElementPresent(makeTestObject("to1", "//h1[contains(., 'Example Domain')]"), 10)
 		WebUI.closeBrowser()
 	}
 
-	@Test
-	public void testChrome() {
-		DriverFactoryModifier.runWith(WebUIDriverType.CHROME_DRIVER)
-		WebUI.openBrowser('')
-		WebUI.delay(1)
-		WebUI.closeBrowser()
+	private TestObject makeTestObject(String id, String xpath) {
+		TestObject tObj = new TestObject(id)
+		tObj.addProperty("xpath", ConditionType.EQUALS, xpath)
+		return tObj
 	}
-		 
-	 @Test
-	 public void testChromeHeadless() {
-		 DriverFactoryModifier.runWith(WebUIDriverType.HEADLESS_DRIVER)
-		 WebUI.openBrowser('')
-		 WebUI.delay(1)
-		 WebUI.closeBrowser()
-	 }
-	 
-	 @Test
-	 public void testEdgeChromium() {
-		 DriverFactoryModifier.runWith(WebUIDriverType.EDGE_CHROMIUM_DRIVER)
-		 WebUI.openBrowser('')
-		 WebUI.delay(1)
-		 WebUI.closeBrowser()
-	 }
-	 */
+	
+	private void verifyMethodsOfDriverFactory(String json1, String json2) {
+		println "BEFORE:\n" + json1;
+		println "AFTER:\n" + json2;
+		assertTrue(json2.contains("openWebDriver") &&
+				json2.contains("org.codehaus.groovy.runtime.metaclass.ClosureStaticMetaMethod") &&
+				json2.contains("[name: openWebDriver params: [] returns: class java.lang.Object owner: class com.kms.katalon.core.webui.driver.DriverFactory]")
+				)
+	}
 }
