@@ -7,6 +7,7 @@ import com.kms.katalon.core.webui.driver.WebUIDriverType
 public class WebUIDriverTypeModifier {
 
 	public static void apply() {
+		
 		WebUIDriverType.metaClass.static.valueOfByDriverName = { driverName ->
 			List<WebUIDriverType> list = WebUIDriverType.values() as List
 			List<WebUIDriverType> filtered = list.stream()
@@ -25,5 +26,15 @@ public class WebUIDriverTypeModifier {
 			WebUIDriverType dt = WebUIDriverType.valueOfByDriverName(driverName)
 			return (dt != null)
 		}
+		
+		WebUIDriverType.metaClass.static.getDriverNames = { ->
+			List<WebUIDriverType> list = WebUIDriverType.values() as List
+			List<String> sorted = list.stream()
+				.map({ dt -> dt.getDriverName() })
+				.sorted()
+				.collect(Collectors.toList())
+			return sorted
+		}
+		
 	}
 }
