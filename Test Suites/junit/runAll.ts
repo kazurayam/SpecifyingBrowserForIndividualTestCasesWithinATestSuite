@@ -15,21 +15,21 @@
       <guid>8f113ddb-703d-41cc-bfef-5de4d62921a2</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/junit/com.kazurayam.ks/DriverFactoryModifierTestRunner</testCaseId>
+      <testCaseId>Test Cases/test/com.kazurayam.ks/DriverFactoryModifierTestRunner</testCaseId>
       <usingDataBindingAtTestSuiteLevel>false</usingDataBindingAtTestSuiteLevel>
    </testCaseLink>
    <testCaseLink>
       <guid>e0cb075c-b12a-4752-962a-4895678d7c3e</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/junit/com.kazurayam.ks/GroovyMetaClassInspectorTestRunner</testCaseId>
+      <testCaseId>Test Cases/test/com.kazurayam.ks/GroovyMetaClassInspectorTestRunner</testCaseId>
       <usingDataBindingAtTestSuiteLevel>false</usingDataBindingAtTestSuiteLevel>
    </testCaseLink>
    <testCaseLink>
       <guid>04bfcc6c-05f5-43a8-8d7c-ddb33c5213d7</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/junit/com.kazurayam.ks/WebUIDriverTypeModifierTestRunner</testCaseId>
+      <testCaseId>Test Cases/test/com.kazurayam.ks/WebUIDriverTypeModifierTestRunner</testCaseId>
       <usingDataBindingAtTestSuiteLevel>false</usingDataBindingAtTestSuiteLevel>
    </testCaseLink>
 </TestSuiteEntity>
