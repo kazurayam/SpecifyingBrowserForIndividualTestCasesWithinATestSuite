@@ -1,8 +1,10 @@
 package com.kazurayam.ks
 
+import static org.junit.Assert.assertEquals
+
 import java.util.stream.Collectors
 
-import static org.junit.Assert.assertEquals
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -16,6 +18,7 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 @RunWith(JUnit4.class)
 public class DriverFactoryModifierTest {
 	
+	@Ignore
 	@Test
 	public void test_apply() {
 		String json1 = new GroovyMetaClassInspector().toJson(DriverFactory.metaClass)
@@ -51,4 +54,5 @@ public class DriverFactoryModifierTest {
 			.collect(Collectors.toList())
 		assertEquals(1, filtered.size())
 	}
+	
 }

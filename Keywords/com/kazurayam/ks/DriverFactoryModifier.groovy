@@ -4,15 +4,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriver
 
 import com.kms.katalon.core.annotation.Keyword
+import com.kms.katalon.core.configuration.RunConfiguration;
 import com.kms.katalon.core.driver.IDriverType;
-import com.kms.katalon.core.webui.driver.WebUIDriverType
 import com.kms.katalon.core.exception.StepFailedException;
 import com.kms.katalon.core.logging.LogLevel;
 import com.kms.katalon.core.webui.driver.DriverFactory;
 import com.kms.katalon.core.webui.driver.WebMobileDriverFactory;
-import com.kms.katalon.core.configuration.RunConfiguration;
-
-import org.codehaus.groovy.ast.ClassNode
+import com.kms.katalon.core.webui.driver.WebUIDriverType
 
 public class DriverFactoryModifier {
 	
@@ -101,5 +99,7 @@ public class DriverFactoryModifier {
 			return webDriverType;
 		}
 	}
+	
+	
 	
 }

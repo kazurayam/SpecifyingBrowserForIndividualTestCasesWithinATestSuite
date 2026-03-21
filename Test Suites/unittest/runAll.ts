@@ -26,6 +26,13 @@
       <usingDataBindingAtTestSuiteLevel>false</usingDataBindingAtTestSuiteLevel>
    </testCaseLink>
    <testCaseLink>
+      <guid>86bd594a-1867-441c-ae35-68feda43b1e1</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/unittest/com.kazurayam.ks/WebDriverPathHelperTestRunner</testCaseId>
+      <usingDataBindingAtTestSuiteLevel>false</usingDataBindingAtTestSuiteLevel>
+   </testCaseLink>
+   <testCaseLink>
       <guid>04bfcc6c-05f5-43a8-8d7c-ddb33c5213d7</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
