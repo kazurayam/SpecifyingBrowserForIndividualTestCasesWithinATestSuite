@@ -1,8 +1,8 @@
 package com.kazurayam.ks
 
-import static org.junit.Assert.assertEquals
-import static org.junit.Assert.assertTrue
+import java.util.stream.Collectors
 
+import static org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -17,13 +17,16 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 public class DriverFactoryModifierTest {
 	
 	@Test
-	public void test_runWith() {
+	public void test_apply() {
 		String json1 = new GroovyMetaClassInspector().toJson(DriverFactory.metaClass)
 		//
-		DriverFactoryModifier.runWith(WebUIDriverType.FIREFOX_DRIVER)
+		DriverFactoryModifier.apply(WebUIDriverType.FIREFOX_DRIVER)
 		//
 		String json2 = new GroovyMetaClassInspector().toJson(DriverFactory.metaClass)
 		verifyMethodsOfDriverFactory(json1, json2)
+		//
+		def browser = DriverFactory.getExecutedBrowser()
+		println "browser: " + browser.getName()
 		//
 		WebUI.openBrowser('http://example.com/')
 		WebUI.verifyElementPresent(makeTestObject("to1", "//h1[contains(., 'Example Domain')]"), 10)
@@ -39,9 +42,13 @@ public class DriverFactoryModifierTest {
 	private void verifyMethodsOfDriverFactory(String json1, String json2) {
 		println "BEFORE:\n" + json1;
 		println "AFTER:\n" + json2;
-		assertTrue(json2.contains("openWebDriver") &&
-				json2.contains("org.codehaus.groovy.runtime.metaclass.ClosureStaticMetaMethod") &&
-				json2.contains("[name: openWebDriver params: [] returns: class java.lang.Object owner: class com.kms.katalon.core.webui.driver.DriverFactory]")
-				)
+		List<String> filtered = new StringReader(json2).readLines().stream()
+			.filter({ line ->
+				line.contains("getExecutedBrowser") &&
+				line.contains("org.codehaus.groovy.runtime.metaclass.ClosureStaticMetaMethod") &&
+				line.contains("[name: getExecutedBrowser params: [] returns: class java.lang.Object owner: class com.kms.katalon.core.webui.driver.DriverFactory]")
+			})
+			.collect(Collectors.toList())
+		assertEquals(1, filtered.size())
 	}
 }

@@ -2,7 +2,6 @@ package com.kms.katalon.core.webui.keyword.builtin
 
 import java.text.MessageFormat
 
-import org.openqa.selenium.WebDriver
 import com.kms.katalon.core.annotation.internal.Action
 import com.kms.katalon.core.configuration.RunConfiguration
 import com.kms.katalon.core.event.EventBusSingleton
@@ -12,17 +11,16 @@ import com.kms.katalon.core.exception.StepFailedException
 import com.kms.katalon.core.keyword.internal.SupportLevel
 import com.kms.katalon.core.model.FailureHandling
 import com.kms.katalon.core.model.TakeScreenshotOption
+import com.kms.katalon.core.trace.TraceDebug
+import com.kms.katalon.core.trace.TraceHolder
 import com.kms.katalon.core.util.internal.PathUtil
 import com.kms.katalon.core.webui.constants.StringConstants
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.internal.WebUIAbstractKeyword
 import com.kms.katalon.core.webui.keyword.internal.WebUIKeywordMain
-import com.kms.katalon.core.trace.TraceDebug
-import com.kms.katalon.core.trace.TraceHolder
 import com.kms.katalon.core.webui.trace.HarTracer
 import com.kms.katalon.core.webui.trace.TraceSession
 
-import groovy.transform.CompileStatic
 
 @Action(value = "openBrowser")
 public class OpenBrowserKeyword extends WebUIAbstractKeyword {
@@ -45,7 +43,11 @@ public class OpenBrowserKeyword extends WebUIAbstractKeyword {
 	public void openBrowser(String rawUrl, FailureHandling flowControl) throws StepFailedException {
 		WebUIKeywordMain.runKeyword({
 			logger.logDebug(StringConstants.KW_LOG_INFO_OPENING_BROWSER)
+			println "[OpenBrowserKeyword#openBrowser] fired!"
+			println "[OpenBrowserKeyword#openBrowser] DriverFactory.getExecutedBrowser(): " + DriverFactory.getExecutedBrowser().toString()
+			println "[OpenBrowserKeyword#openBrowser] DriverFactory.isUsingExistingDriver(): " + DriverFactory.isUsingExistingDriver()
 			DriverFactory.openWebDriver()
+			println "[OpenBrowserKeyword#openBrowser] DriverFactory.getExecutedBrowser(): " + DriverFactory.getExecutedBrowser().toString()
 			if (rawUrl != null && !rawUrl.isEmpty()) {
 				try {
 					TraceSession session = (TraceSession) TraceHolder.session

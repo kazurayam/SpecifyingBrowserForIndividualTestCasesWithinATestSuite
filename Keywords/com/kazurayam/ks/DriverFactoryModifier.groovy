@@ -9,6 +9,8 @@ import com.kms.katalon.core.webui.driver.WebUIDriverType
 import com.kms.katalon.core.exception.StepFailedException;
 import com.kms.katalon.core.logging.LogLevel;
 import com.kms.katalon.core.webui.driver.DriverFactory;
+import com.kms.katalon.core.webui.driver.WebMobileDriverFactory;
+import com.kms.katalon.core.configuration.RunConfiguration;
 
 import org.codehaus.groovy.ast.ClassNode
 
@@ -19,12 +21,12 @@ public class DriverFactoryModifier {
 	 * @param driverName one of "Chrome", "Chrome (headless)", "Firefox", "Firefox (headless)", "Edge Chromium"
 	 */
 	@Keyword
-	public static void runWith(String driverName) {
+	public static void apply(String driverName) {
 		Objects.requireNonNull(driverName)
 		WebUIDriverTypeModifier.apply()
 		if (WebUIDriverType.isDefinedDriverName(driverName)) {
 			WebUIDriverType driverType = WebUIDriverType.valueOfByDriverName(driverName)
-			runWith(driverType)
+			apply(driverType)
 		} else {
 			throw new IllegalArgumentException(driverName + " is not a valid WebUIDriverType")
 		}
@@ -35,35 +37,68 @@ public class DriverFactoryModifier {
 	 * 
 	 * @param driverType 
 	 */
-	public static void runWith(WebUIDriverType driverType) {
+	public static void apply(WebUIDriverType driverType) {
 		Objects.requireNonNull(driverType)
 		DriverFactory.metaClass.'static'.openWebDriver = { ->
-			/**
-			 * Open a new WebDriver based on the RunConfiguration
-			 */
 			try {
 				WebDriver webDriver;
 				if (DriverFactory.isUsingExistingDriver()) {
-					println "[DriverFactoryModifier#runWith] isUsingExistingDriver: " + DriverFactory.isUsingExistingDriver()
 					webDriver = DriverFactory.startExistingBrowser();
 				} else {
 					String remoteWebDriverUrl = DriverFactory.getRemoteWebDriverServerUrl();
 					if (StringUtils.isNotEmpty(remoteWebDriverUrl)) {
-						println "[DriverFactoryModifier#runWith] isNotEmpty(remoteWebDriverUrl): " + StringUtils.isNotEmpty(remoteWebDriverUrl)
 						webDriver = DriverFactory.startRemoteBrowser();
 					} else {
-						// Here I hacked!
-						// webDriver = DriverFactory.startNewBrowser(DriverFactory.getExecutedBrowser());
-						webDriver = DriverFactory.startNewBrowser(driverType);
+						println "[DriverFactory#openWebDriver] DriverFactory.getExecutedBrowser(): " + DriverFactory.getExecutedBrowser()
+						webDriver = DriverFactory.startNewBrowser(DriverFactory.getExecutedBrowser());
 					}
+	
 					DriverFactory.saveWebDriverSessionData(webDriver);
 					DriverFactory.changeWebDriver(webDriver);
 				}
-				return webDriver
+	
+				return webDriver;
 			} catch (Error e) {
 				DriverFactory.logger.logMessage(LogLevel.WARNING, e.getMessage(), e);
 				throw new StepFailedException(e);
 			}
+		}
+		DriverFactory.metaClass.'static'.getExecutedBrowser = { ->
+			println "[DriverFactory] getExecutedBrowser() is called"
+			IDriverType webDriverType = null;
+			if (DriverFactory.isUsingExistingDriver()) {
+				webDriverType = WebUIDriverType.fromStringValue(RunConfiguration.getExistingSessionDriverType());
+			}
+	
+			if (webDriverType != null) {
+				return webDriverType;
+			}
+	
+			String remoteWebDriverUrl = DriverFactory.getRemoteWebDriverServerUrl();
+			
+			String driverConnectorProperty = null;
+			String driverTypeString = null
+			if (StringUtils.isNotBlank(remoteWebDriverUrl)) {
+				driverConnectorProperty = RunConfiguration.REMOTE_DRIVER_PROPERTY  // Remote
+				driverTypeString = RunConfiguration.getDriverSystemProperty(driverConnectorProperty, DriverFactory.EXECUTED_BROWSER_PROPERTY)
+			} else {
+				driverConnectorProperty = DriverFactory.WEB_UI_DRIVER_PROPERTY  // WebUI
+				//driverTypeString = RunConfiguration.getDriverSystemProperty(driverConnectorProperty, DriverFactory.EXECUTED_BROWSER_PROPERTY)
+				driverTypeString = driverType.name()
+			}
+			println "driverConnectorProperty: " + driverConnectorProperty  // "WebUI"
+			println "driverTypeString: " + driverTypeString                // "FIREFOX_DRIVER"
+			if (driverTypeString != null) {
+				webDriverType = WebUIDriverType.valueOf(driverTypeString);
+			}
+	
+			if (webDriverType == null && RunConfiguration.getDriverSystemProperty(DriverFactory.MOBILE_DRIVER_PROPERTY,
+					WebMobileDriverFactory.EXECUTED_MOBILE_PLATFORM) != null) {
+				webDriverType = WebUIDriverType.valueOf(RunConfiguration.getDriverSystemProperty(DriverFactory.MOBILE_DRIVER_PROPERTY,
+						WebMobileDriverFactory.EXECUTED_MOBILE_PLATFORM));
+			}
+	
+			return webDriverType;
 		}
 	}
 	
