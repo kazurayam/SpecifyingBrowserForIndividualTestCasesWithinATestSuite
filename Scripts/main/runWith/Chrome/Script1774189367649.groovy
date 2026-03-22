@@ -1,5 +1,4 @@
 import com.kazurayam.ks.DriverFactoryModifier
-import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.driver.WebUIDriverType
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 

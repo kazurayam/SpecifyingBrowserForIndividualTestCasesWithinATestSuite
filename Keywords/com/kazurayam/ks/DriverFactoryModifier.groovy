@@ -58,8 +58,9 @@ public class DriverFactoryModifier {
 					if (StringUtils.isNotEmpty(remoteWebDriverUrl)) {
 						webDriver = DriverFactory.startRemoteBrowser();
 					} else {
-						println "[DriverFactory#openWebDriver] DriverFactory.getExecutedBrowser(): " + DriverFactory.getExecutedBrowser()
+						// a great hack here!
 						webDriver = DriverFactory.startNewBrowser(DriverFactory.getExecutedBrowser());
+						println "[DriverFactory#openWebDriver] DriverFactory.getExecutedBrowser(): " + DriverFactory.getExecutedBrowser()
 					}
 	
 					DriverFactory.saveWebDriverSessionData(webDriver);

@@ -23,6 +23,7 @@ public class DriverFactoryModifierTest {
 	public void test_apply() {
 		String json1 = new GroovyMetaClassInspector().toJson(DriverFactory.metaClass)
 		//
+		RunConfigurationModifier.injectWebDriverPaths()
 		DriverFactoryModifier.apply(WebUIDriverType.FIREFOX_DRIVER)
 		//
 		String json2 = new GroovyMetaClassInspector().toJson(DriverFactory.metaClass)
