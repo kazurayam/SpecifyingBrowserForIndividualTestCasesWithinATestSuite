@@ -23,8 +23,15 @@ import com.kms.katalon.core.webui.driver.firefox.FirefoxDriverUtil
 @RunWith(JUnit4.class)
 public class RunConfigurationModifierTest {
 	
+	private static Path outDir = null;
+	
 	@BeforeClass
 	public static void beforeClass() {
+		Path buildDir = Paths.get(RunConfiguration.getProjectDir()).resolve('build')
+		Path testOutputDir = buildDir.resolve('testOutput')
+		outDir = testOutputDir.resolve('RunConfigurationModifierTest')
+		Files.createDirectories(outDir)
+		//
 		RunConfigurationModifier.apply()
 		RunConfiguration.injectWebDriverPath("${DriverFactory.CHROME_DRIVER_PATH_PROPERTY}", "${WebDriverPathHelper.getChromeDriverPath().toString()}")
 		RunConfiguration.injectWebDriverPath("${StringConstants.CONF_PROPERTY_GECKO_DRIVER_PATH}", "${WebDriverPathHelper.getFirefoxDriverPath().toString()}")
@@ -72,4 +79,11 @@ public class RunConfigurationModifierTest {
 		assertNotNull("proxy is null", proxy)
 	}
 
+	@Test
+	public void test_toJson() {
+		String json = RunConfiguration.toJson()
+		assertNotNull("RunConfiguration.toJson() returned null", json)
+		Path out = outDir.resolve('execution.properties.json')
+		out.toFile().text = json
+	}
 }

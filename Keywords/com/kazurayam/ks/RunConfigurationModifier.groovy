@@ -1,5 +1,7 @@
 package com.kazurayam.ks
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.kms.katalon.core.annotation.Keyword
 import com.kms.katalon.core.configuration.RunConfiguration
 import com.kms.katalon.core.webui.constants.StringConstants
@@ -40,6 +42,15 @@ public class RunConfigurationModifier {
 			Map<String, Object> webui = system.get("WebUI")
 			assert webui != null
 			webui.put(key, value)
+		}
+		
+		RunConfiguration.metaClass.'static'.toJson = { ->
+			Gson gson = new GsonBuilder()
+				.setPrettyPrinting()
+				.create();
+			StringWriter sw = new StringWriter()
+			gson.toJson(RunConfiguration.localExecutionSettingMapStorage, sw)
+			return sw.toString()
 		}
 	}
 }
