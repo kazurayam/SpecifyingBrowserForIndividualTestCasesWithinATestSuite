@@ -1,16 +1,26 @@
 package com.kazurayam.ks
 
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
+
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriver
 
 import com.kms.katalon.core.annotation.Keyword
 import com.kms.katalon.core.configuration.RunConfiguration;
+import com.kms.katalon.core.constants.StringConstants
 import com.kms.katalon.core.driver.IDriverType;
 import com.kms.katalon.core.exception.StepFailedException;
 import com.kms.katalon.core.logging.LogLevel;
 import com.kms.katalon.core.webui.driver.DriverFactory;
 import com.kms.katalon.core.webui.driver.WebMobileDriverFactory;
 import com.kms.katalon.core.webui.driver.WebUIDriverType
+import com.kms.katalon.core.webui.driver.chrome.ChromeDriverUtil
+import com.kms.katalon.core.webui.driver.edge.EdgeDriverUtil
+import com.kms.katalon.core.webui.driver.firefox.FirefoxDriverUtil
+import com.kms.katalon.core.webui.util.FileExcutableUtil;
+import com.kms.katalon.core.webui.util.OSUtil
 
 public class DriverFactoryModifier {
 	
@@ -37,6 +47,7 @@ public class DriverFactoryModifier {
 	 */
 	public static void apply(WebUIDriverType driverType) {
 		Objects.requireNonNull(driverType)
+		//
 		DriverFactory.metaClass.'static'.openWebDriver = { ->
 			try {
 				WebDriver webDriver;
@@ -61,8 +72,8 @@ public class DriverFactoryModifier {
 				throw new StepFailedException(e);
 			}
 		}
+		//
 		DriverFactory.metaClass.'static'.getExecutedBrowser = { ->
-			println "[DriverFactory] getExecutedBrowser() is called"
 			IDriverType webDriverType = null;
 			if (DriverFactory.isUsingExistingDriver()) {
 				webDriverType = WebUIDriverType.fromStringValue(RunConfiguration.getExistingSessionDriverType());
@@ -81,11 +92,10 @@ public class DriverFactoryModifier {
 				driverTypeString = RunConfiguration.getDriverSystemProperty(driverConnectorProperty, DriverFactory.EXECUTED_BROWSER_PROPERTY)
 			} else {
 				driverConnectorProperty = DriverFactory.WEB_UI_DRIVER_PROPERTY  // WebUI
+				// Here is a hack!
 				//driverTypeString = RunConfiguration.getDriverSystemProperty(driverConnectorProperty, DriverFactory.EXECUTED_BROWSER_PROPERTY)
 				driverTypeString = driverType.name()
 			}
-			println "driverConnectorProperty: " + driverConnectorProperty  // "WebUI"
-			println "driverTypeString: " + driverTypeString                // "FIREFOX_DRIVER"
 			if (driverTypeString != null) {
 				webDriverType = WebUIDriverType.valueOf(driverTypeString);
 			}
@@ -99,7 +109,4 @@ public class DriverFactoryModifier {
 			return webDriverType;
 		}
 	}
-	
-	
-	
 }
