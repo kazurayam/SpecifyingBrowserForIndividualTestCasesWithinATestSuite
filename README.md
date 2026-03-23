@@ -6,6 +6,6 @@ In a Test Suite "TS2", I want to run Test Case "TC1" 3 times using diffent brows
 
 I have developed a few custom Groovy codes which enabled the "TS2" to run.
 
-See [the doc](https://kazurayam.github.io/SpecifyingBrowserFroIndividualTestCasesWithingATestSuite/) for more detail.
+See [the doc](https://kazurayam.github.io/SpecifyingBrowserForIndividualTestCasesWithinATestSuite/) for more detail.
 
 
