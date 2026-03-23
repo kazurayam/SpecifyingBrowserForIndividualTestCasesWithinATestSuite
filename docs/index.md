@@ -36,7 +36,7 @@ The `TS2` contains the Test Case `main/TC1` 3 times, and execute the 1st with Fi
 
 ![TS2](https://kazurayam.github.io/SpecifyingBrowserForIndividualTestCasesWithinATestSuite/images/TS2.png)
 
-You will find that a few more steps of Test Case are inserted in the above link:https://github.com/kazurayam/SpecifyingBrowserForIndividualTestCasesWithinATestSuite/Test Suites/main/TS2.ts\[`Test Suites/TS2`\].
+You will find that a few more steps of Test Case are inserted in the above `Test Suites/main/TS2`.
 
 - `Test Cases/main/modifyRunConfiguration`
 
