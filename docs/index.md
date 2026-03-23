@@ -638,3 +638,11 @@ The "runWith" script for Edge Chromium and Chrome look similar.
             }, flowControl, TakeScreenshotOption.NONE, (rawUrl != null) ? MessageFormat.format(StringConstants.KW_MSG_UNABLE_TO_OPEN_BROWSER_W_URL, rawUrl) : StringConstants.KW_MSG_UNABLE_TO_OPEN_BROWSER)
         }
     }
+
+## Conclusion
+
+I don’t think the original idea (run Test Cases with different borwser in a Test Suite) is pragmatic. It is no use. It was technically interesting to develop this project. The `TS2` worked fine. So I am contented with this time of experiment.
+
+I would stop my hands on this project for now.
+
+A restricting faster for me is that the `com.kms.katalon.core.webui.keyword.builtin.OpenBrowserKeyord` class is coded with `@CompileStatic` annotations. This makes my works very dirty. I do not like to publish this project because of this restriction.
