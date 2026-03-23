@@ -23,7 +23,7 @@ This library enables my Test Case script to load any Execution Profile programat
 
 Issue resolved? --- the half resolved, still remains another half.
 
-**I want to run several test cases in one Test Suite with different browser type --- Firefox, Edge Chromium and Chrome.**
+But what's the rest? --- **I want to run several test cases in one Test Suite with different browser type --- Firefox, Edge Chromium and Chrome.**
 
 Katalon Studio does not support this. You can select only one browser type for all Test Cases in a Test Suite run. As the following screenshot shows, once you choose Firefox, then the Test Case `main/TC1` will run 3 times with Firefox browser. Very boring.
 
