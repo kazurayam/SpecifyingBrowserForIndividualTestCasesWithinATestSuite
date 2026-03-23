@@ -11,7 +11,7 @@ link:https://forum.katalon.com/t/specify-profiles-for-individual-test-cases-with
 
 The original poster wrote that he wants to run several test cases in one Test Suite with different "profile" files.
 
-Katalon Studio does not support this. You can select only one Profile for all Test Cases in a Test Suite run. The following screenshot shows, once you choose the ProfileX, then the Test Case `main/TC1` will run with the `ProfileX`` 3 times. It is boring.
+Katalon Studio does not support this. You can select only one Profile for all Test Cases in a Test Suite run. The following screenshot shows, once you choose the ProfileX, then the Test Case `main/TC1` will run with the `ProfileX` 3 times. It is boring.
 
 image:{PAGES_URL}/images/TS1_with_ProfileX.png[]
 
@@ -25,21 +25,20 @@ Issue resolved? --- the half resolved, still remains another half.
 
 **I want to run several test cases in one Test Suite with different browser type --- Firefox, Edge Chromium and Chrome.**
 
-Katalon Studio does not support this. You can select only one browser type for all Test Cases in a Test Suite run. The following screenshot shows, once you choose Firefox, then the Test Case `main/TC1` will run 3 times with Firefox browser. Very boring.
+Katalon Studio does not support this. You can select only one browser type for all Test Cases in a Test Suite run. As the following screenshot shows, once you choose Firefox, then the Test Case `main/TC1` will run 3 times with Firefox browser. Very boring.
 
 image:{PAGES_URL}/images/TS1_with_Firefox.png[]
 
 == Solution
 
-I have developed a a Test Suite
+I have developed a Test Suite
 
-- link:{REPOS_URL}/Test Suites/main/TS2.ts[`Test Suites/TS2`]
+- `Test Suites/TS2`
 
 The `TS2` contains the Test Case `main/TC1` 3 times, and execute the 1st with Firefox, execute the 2nd with Edge Chromium, and the 3rd with Chrome.
 
 image:{PAGES_URL}/images/TS2.png[]
 
-The `TS2` worked fine. When I run it, I saw 3 different browsers (Firefox, Edge Chromium, Chrome) open and close.
 
 You will find that a few more steps of Test Case are inserted in the above link:{REPOS_URL}/Test Suites/main/TS2.ts[`Test Suites/TS2`].
 
@@ -49,6 +48,8 @@ You will find that a few more steps of Test Case are inserted in the above link:
 - `Test Cases/main/runWith/Chrome`
 
 These steps implement my black magic of custom Groovy programming.
+
+The `TS2` worked fine. When I run it, I saw 3 different browsers (Firefox, Edge Chromium, Chrome) opened and closed.
 
 == Description
 
