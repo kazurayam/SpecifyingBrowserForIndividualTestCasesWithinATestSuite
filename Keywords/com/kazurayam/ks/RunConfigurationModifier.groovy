@@ -2,6 +2,9 @@ package com.kazurayam.ks
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.SerializationFeature
+
 import com.kms.katalon.core.annotation.Keyword
 import com.kms.katalon.core.configuration.RunConfiguration
 import com.kms.katalon.core.webui.constants.StringConstants
@@ -45,12 +48,19 @@ public class RunConfigurationModifier {
 		}
 		
 		RunConfiguration.metaClass.'static'.toJson = { ->
+			/*
 			Gson gson = new GsonBuilder()
 				.setPrettyPrinting()
 				.create();
 			StringWriter sw = new StringWriter()
 			gson.toJson(RunConfiguration.localExecutionSettingMapStorage, sw)
 			return sw.toString()
+			*/
+			ObjectMapper om = new ObjectMapper()
+			om.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true)
+			om.configure(SerializationFeature.INDENT_OUTPUT, true)
+			String json = om.writeValueAsString(RunConfiguration.localExecutionSettingMapStorage)
+			return json
 		}
 	}
 }

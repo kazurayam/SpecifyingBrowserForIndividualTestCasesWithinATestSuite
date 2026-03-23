@@ -13,5 +13,9 @@ RunConfiguration.injectWebDriverPath("${StringConstants.CONF_PROPERTY_GECKO_DRIV
 RunConfiguration.injectWebDriverPath("${DriverFactory.EDGE_CHROMIUM_DRIVER_PATH_PROPERTY}", "${WebDriverPathHelper.getEdgeChromiumDriverPath().toString()}")
 
 String json = RunConfiguration.toJson()
-println json
+
+Path buildDir = Paths.get(RunConfiguration.getProjectDir()).resolve('build')
+Files.createDirectories(buildDir)
+Path outFile = buildDir.resolve("execution.properties.json")
+outFile.toFile().text = json
 
