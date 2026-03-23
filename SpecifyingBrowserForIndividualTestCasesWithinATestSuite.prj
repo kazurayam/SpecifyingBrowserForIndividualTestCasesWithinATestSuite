@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project>
    <description></description>
-   <name>DriverFactoryModifier</name>
+   <name>SpecifyingBrowserForIndividualTestCasesWithinATestSuite</name>
    <tag></tag>
    <UUID>a69f5c99-fccd-4a56-a40a-0185fe179019</UUID>
    <createdEdition>ENTERPRISE</createdEdition>
@@ -11,7 +11,7 @@
    <modifiedEdition>ENTERPRISE</modifiedEdition>
    <modifiedVersion>11.0.1</modifiedVersion>
    <pageLoadTimeout>0</pageLoadTimeout>
-   <projectFileLocation>/Users/kazuakiurayama/katalon-workspace/DriverFactoryModifier/DriverFactoryModifier.prj</projectFileLocation>
+   <projectFileLocation>/Users/kazuakiurayama/katalon-workspace/SpecifyingBrowserForIndividualTestCasesWithinATestSuite/SpecifyingBrowserForIndividualTestCasesWithinATestSuite.prj</projectFileLocation>
    <sourceContent>
       <sourceFolderList>
          <sourceFolderConfiguration>
