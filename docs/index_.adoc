@@ -53,7 +53,7 @@ The `TS2` worked fine. When I run it, I saw 3 different browsers (Firefox, Edge 
 
 == Description
 
-Please read the source codes and the inline comments.
+Please read the source codes. The inline comments describe a lot.
 
 === Test Cases/main/modifyRunConfiguration/
 
